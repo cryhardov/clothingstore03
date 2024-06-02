@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кошик</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #1f1f1f;
+            color: #e0e0e0;
+            padding: 15px 0;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: #e0e0e0;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            padding: 10px 15px;
+            border-radius: 5px;
+        }
+
+        nav ul li a:hover {
+            background-color: #333;
+        }
+
+        main {
+            flex: 1;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1, h2 {
+            color: #ffffff;
+        }
+
+        p {
+            color: #b0b0b0;
+        }
+
+        #cart-items {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #1f1f1f;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .cart-item img {
+            width: 100px;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .cart-item-info {
+            flex: 1;
+            margin-left: 15px;
+            text-align: left;
+        }
+
+        .cart-item-info h3 {
+            margin: 0 0 10px;
+        }
+
+        .cart-item-info p {
+            margin: 5px 0;
+        }
+
+        .cart-item-action {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px 0;
+            background-color: #6200ea;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #3700b3;
+        }
+
+        .remove-button {
+            background-color: #e53935;
+        }
+
+        .remove-button:hover {
+            background-color: #b71c1c;
+        }
+
+        .total {
+            font-weight: bold;
+            font-size: 18px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        footer {
+            background-color: #1f1f1f;
+            color: #e0e0e0;
+            text-align: center;
+            padding: 10px 0;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <nav>
+        <ul>
+            <li><a href="index.html">Головна</a></li>
+            <li><a href="tees.html">Футболки</a></li>
+            <li><a href="hoodies.html">Худі</a></li>
+            <li><a href="acs.html">Аксесуари</a></li>
+            <li><a href="cart.html">Кошик</a></li>
+            <li><a href="about.html">Про нас</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <h1>Кошик</h1>
+    <p>Ось ваші товари для замовлення:</p>
+
+    <ul id="cart-items">
+        <!-- Товари будуть динамічно додані тут -->
+    </ul>
+
+    <div class="total">
+        Загальна сума: <span id="total-price">$0</span>
+    </div>
+
+    <button onclick="checkout()">Оформити замовлення</button>
+</main>
+
+<footer>
+    <p>&copy; 2024 Магазин одягу. Усі права захищені.</p>
+</footer>
+
+<script>
+    function loadCartItems() {
+        let cartItems = JSON.parse(sessionStorage.getItem('cartItems')) || [];
+        let cartItemsContainer = document.getElementById('cart-items');
+        cartItemsContainer.innerHTML = '';
+        let totalPrice = 0;
+
+        cartItems.forEach((item, index) => {
+            let listItem = document.createElement('li');
+            listItem.classList.add('cart-item');
+
+            let imgElement = document.createElement('img');
+            imgElement.src = item.image;
+            imgElement.alt = item.name;
+            listItem.appendChild(imgElement);
+
+            let infoDiv = document.createElement('div');
+            infoDiv.classList.add('cart-item-info');
+
+            let nameElement = document.createElement('h3');
+            nameElement.textContent = item.name;
+            infoDiv.appendChild(nameElement);
+
+            let priceElement = document.createElement('p');
+            priceElement.textContent = 'Ціна: $' + item.price;
+            totalPrice += item.price;
+            infoDiv.appendChild(priceElement);
+
+            let sizeElement = document.createElement('p');
+            sizeElement.textContent = 'Розмір: ' + item.size;
+            infoDiv.appendChild(sizeElement);
+
+            listItem.appendChild(infoDiv);
+
+            let actionDiv = document.createElement('div');
+            actionDiv.classList.add('cart-item-action');
+
+            let removeButton = document.createElement('button');
+            removeButton.textContent = 'Видалити';
+            removeButton.classList.add('remove-button');
+            removeButton.onclick = () => removeItem(index);
+            actionDiv.appendChild(removeButton);
+
+            listItem.appendChild(actionDiv);
+
+            cartItemsContainer.appendChild(listItem);
+        });
+
+        document.getElementById('total-price').textContent = '$' + totalPrice;
+    }
+
+    function removeItem(index) {
+        let cartItems = JSON.parse(sessionStorage.getItem('cartItems')) || [];
+        cartItems.splice(index, 1);
+        sessionStorage.setItem('cartItems', JSON.stringify(cartItems));
+        loadCartItems();
+    }
+
+    function checkout() {
+        alert('Замовлення оформлене!');
+        sessionStorage.removeItem('cartItems');
+        loadCartItems();
+    }
+
+    window.onload = loadCartItems;
+</script>
+
+</body>
+</html>

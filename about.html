@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Про нас</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #1f1f1f;
+            color: #e0e0e0;
+            padding: 15px 0;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: #e0e0e0;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            padding: 10px 15px;
+            border-radius: 5px;
+        }
+
+        nav ul li a:hover {
+            background-color: #333;
+        }
+
+        main {
+            flex: 1;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #ffffff;
+        }
+
+        p {
+            color: #cccccc;
+        }
+
+        iframe {
+            margin-top: 20px;
+        }
+
+        #contact-form {
+            margin-top: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #contact-form h2 {
+            color: #ffffff;
+        }
+
+        #contact-form form {
+            width: 60%;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #contact-form label {
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+
+        #contact-form textarea {
+            width: calc(100% - 40px);
+            height: 100px;
+            padding: 10px;
+            margin-bottom: 20px;
+            background-color: #333333;
+            color: #ffffff;
+            border: 1px solid #ffffff;
+            border-radius: 5px;
+            resize: none;
+        }
+
+        .submit-btn {
+            width: auto;
+            margin-left: auto;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #6200ea;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .submit-btn:hover {
+            background-color: #3700b3;
+        }
+
+        footer {
+            background-color: #1f1f1f;
+            color: #e0e0e0;
+            text-align: center;
+            padding: 15px 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <nav>
+        <ul>
+            <li><a href="index.html">Головна</a></li>
+            <li><a href="tees.html">Футболки</a></li>
+            <li><a href="hoodies.html">Худі</a></li>
+            <li><a href="acs.html">Аксесуари</a></li>
+            <li><a href="cart.html">Кошик</a></li>
+            <li><a href="about.html">Про нас</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <h1>Про нас</h1>
+    <p>Інформація поки що відсутня.</p>
+    
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/wAQPoHT8Z6M?si=5JtXKbIbFD3XVPd2" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+    <section id="contact-form">
+        <h2>Зв'яжіться з нами</h2>
+        <form action="#" method="post">
+            <label for="message">Введіть ваше повідомлення:</label>
+            <textarea id="message" name="message" rows="4" cols="50"></textarea>
+            <input type="submit" class="submit-btn" value="Відправити повідомлення">
+        </form>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2024 Магазин одягу. Усі права захищені.</p>
+</footer>
+
+</body>
+</html>
